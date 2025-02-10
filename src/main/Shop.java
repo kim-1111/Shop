@@ -242,11 +242,6 @@ public class Shop {
     public void sale() {
         // ask for client name
         Scanner scan = new Scanner(System.in);
-        System.out.println("Realizar venta, escribir nombre cliente:");
-
-        String nombre = scan.nextLine();
-
-        Client client = new Client(nombre);
 
         ArrayList<Product> productsSold = new ArrayList<>();
 
@@ -254,9 +249,14 @@ public class Shop {
         Amount totalAmount = new Amount(0.0);
         String name = "";
         try {
+            System.out.println("Realizar venta, escribir nombre cliente:");
+
+            String nombre = scan.nextLine();
 
             System.out.println("Introduce el numero del cliente: ");
             int numero = scan.nextInt();
+
+            Client client = new Client(numero,new Amount(50),nombre);
 
             if (numero != client.getMemberid()) {
                 System.out.println("No se encuentra el cliente");
@@ -297,6 +297,7 @@ public class Shop {
                 }
                 if (client.pay(totalAmount) == true) {
                     System.out.println("Venta realizada con éxito, total: " + totalAmount);
+                    System.out.println("Banlance Actual: " + client.getBalance());
                 }
             }
         } catch (Exception e) {
